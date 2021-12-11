@@ -1,10 +1,18 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
+import { Question } from "../protocols/questions.interfaces";
+import * as questionsService from "../services/questions.service";
 
-const create = (req: Request, res: Response) => {
+const create = async (req: Request, res: Response, next: NextFunction) => {
+    const questionData: Question = req.body;
+
     try {
-        res.sendStatus(201);
+        const createQuestionRequest = await questionsService.create(
+            questionData
+        );
+
+        res.send(createQuestionRequest);
     } catch (error) {
-        console.log(error);
+        next(error);
     }
 };
 

@@ -10,7 +10,7 @@ const handleErrors = (
     if (error instanceof GeneralError) {
         return res.status(error.getCode()).send(error.message);
     }
-
+    console.log(error);
     res.sendStatus(500);
 };
 
