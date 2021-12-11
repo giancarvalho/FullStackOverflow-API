@@ -13,6 +13,17 @@ const find = async (studentName: string): Promise<studentDB> => {
     return result.rows[0];
 };
 
+const findByToken = async (studentToken: string): Promise<studentDB> => {
+    const result = await connection.query(
+        `SELECT id, class_id AS "classId" FROM students WHERE token = $1`,
+        [studentToken]
+    );
+
+    if (result.rowCount === 0) return null;
+
+    return result.rows[0];
+};
+
 const create = async (studentData: Student): Promise<string> => {
     let classId;
 
@@ -42,4 +53,4 @@ const create = async (studentData: Student): Promise<string> => {
     return token;
 };
 
-export { find, create };
+export { find, create, findByToken };

@@ -38,7 +38,7 @@ CREATE TABLE "classes" (
 
 CREATE TABLE "answers" (
 	"id" serial NOT NULL,
-	"answer" TIME NOT NULL,
+	"answer" text NOT NULL,
 	"answered_by" integer NOT NULL,
 	"answered_at" TIMESTAMP NOT NULL DEFAULT 'now()',
 	CONSTRAINT "answers_pk" PRIMARY KEY ("id")

@@ -16,4 +16,22 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-export { create };
+const answer = async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    const { answer } = req.body;
+
+    try {
+        const answerQuestionRequest = await questionsService.answer({
+            answer,
+            token,
+            questionId: Number(id),
+        });
+
+        res.send(answerQuestionRequest);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export { create, answer };
