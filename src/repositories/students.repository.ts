@@ -13,7 +13,7 @@ const find = async (studentName: string): Promise<studentDB> => {
     return result.rows[0];
 };
 
-const create = async (studentData: Student) => {
+const create = async (studentData: Student): Promise<string> => {
     let classId;
 
     const findClass = await connection.query(
