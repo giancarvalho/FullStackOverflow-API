@@ -3,4 +3,9 @@ interface studentDB {
     id: number;
 }
 
-export { studentDB };
+interface Student {
+    name: string;
+    class: string;
+}
+
+export { studentDB, Student };

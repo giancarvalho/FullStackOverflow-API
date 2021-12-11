@@ -22,4 +22,4 @@ class BadRequest extends GeneralError {}
 class NotFound extends GeneralError {}
 class Conflict extends GeneralError {}
 
-export { BadRequest, NotFound, GeneralError };
+export { BadRequest, NotFound, GeneralError, Conflict };
