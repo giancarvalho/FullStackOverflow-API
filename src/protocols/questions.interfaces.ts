@@ -12,4 +12,22 @@ interface QuestionDB {
     tags: string;
 }
 
-export { Question, QuestionDB };
+interface RetrievedQuestion extends QuestionDB {
+    submittedAt: Date;
+    answerId: number;
+    answered: boolean;
+}
+
+interface answerData {
+    answer: string;
+    token: string;
+    questionId: number;
+}
+
+interface answerDataDB {
+    answer: string;
+    answeredBy: number;
+    questionId: number;
+}
+
+export { Question, QuestionDB, answerDataDB, answerData, RetrievedQuestion };

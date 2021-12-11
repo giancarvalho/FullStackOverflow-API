@@ -1,5 +1,9 @@
 import connection from "../database";
-import { QuestionDB } from "../protocols/questions.interfaces";
+import {
+    answerDataDB,
+    QuestionDB,
+    RetrievedQuestion,
+} from "../protocols/questions.interfaces";
 
 const create = async (questionData: QuestionDB): Promise<number> => {
     const questionInsertion = await connection.query(
@@ -15,4 +19,31 @@ const create = async (questionData: QuestionDB): Promise<number> => {
     return questionInsertion.rows[0].id;
 };
 
-export { create };
+const answer = async (answerDataDB: answerDataDB) => {
+    const insertAnswer = await connection.query(
+        "INSERT INTO answers (answer, answered_by) VALUES ($1, $2) RETURNING id;",
+        [answerDataDB.answer, answerDataDB.answeredBy]
+    );
+
+    const answerId = insertAnswer.rows[0].id;
+
+    await connection.query(
+        "UPDATE questions SET answer_id=$1, answered=true WHERE id = $2",
+        [answerId, answerDataDB.questionId]
+    );
+
+    return answerId;
+};
+
+const find = async (questionId: number): Promise<RetrievedQuestion> => {
+    const result = await connection.query(
+        "SELECT * FROM questions WHERE id = $1",
+        [questionId]
+    );
+
+    if (result.rowCount === 0) return null;
+
+    return result.rows[0];
+};
+
+export { create, answer, find };
