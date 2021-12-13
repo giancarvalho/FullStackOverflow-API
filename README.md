@@ -99,7 +99,7 @@ POST /questions/:id - replace ":id" with the id number of the question you want 
 
 ```
 
-POST /users - lets you create user. You need to send an object with the properties list below. If the class does not exist, it will be created in the same request.
+POST /users - lets you create users. You need to send an object with the properties list below. If the class does not exist, it will be created in the same request.
 
 ```
 {
