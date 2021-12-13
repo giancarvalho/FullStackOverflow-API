@@ -4,7 +4,7 @@ import { Student, studentDB } from "../protocols/students.interface";
 
 const find = async (studentName: string): Promise<studentDB> => {
     const result = await connection.query(
-        `SELECT id, class_id AS "classId" FROM students WHERE name iLIKE $1`,
+        `SELECT students.id, students.name, students.class_id AS "classId", classes.name as "className" FROM students JOIN classes ON students.class_id= classes.id WHERE students.name iLIKE $1`,
         [studentName]
     );
 
