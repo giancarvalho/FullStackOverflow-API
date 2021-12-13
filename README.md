@@ -42,6 +42,8 @@ The API was made using NodeJs/Express.
 
 ## Endpoints guide
 
+GET /questions - returns a list of unswared questions.
+
 POST /questions - needs an object with the following properties:
 
 ```
@@ -92,8 +94,6 @@ POST /questions/:id - replace ":id" with the id number of the question you want 
 }
 
 ```
-
-GET /questions - returns a list of unswared questions.
 
 POST /users - lets you create user. You need to send an object with the following properties:
 
