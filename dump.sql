@@ -12,8 +12,6 @@ CREATE TABLE "questions" (
   OIDS=FALSE
 );
 
-
-
 CREATE TABLE "students" (
 	"id" serial NOT NULL,
 	"name" varchar(255) NOT NULL,
@@ -24,8 +22,6 @@ CREATE TABLE "students" (
   OIDS=FALSE
 );
 
-
-
 CREATE TABLE "classes" (
 	"id" serial NOT NULL,
 	"name" varchar(255) NOT NULL,
@@ -33,8 +29,6 @@ CREATE TABLE "classes" (
 ) WITH (
   OIDS=FALSE
 );
-
-
 
 CREATE TABLE "answers" (
 	"id" serial NOT NULL,
@@ -46,13 +40,10 @@ CREATE TABLE "answers" (
   OIDS=FALSE
 );
 
-
-
 ALTER TABLE "questions" ADD CONSTRAINT "questions_fk0" FOREIGN KEY ("student_id") REFERENCES "students"("id");
 ALTER TABLE "questions" ADD CONSTRAINT "questions_fk1" FOREIGN KEY ("answer_id") REFERENCES "answers"("id");
 
 ALTER TABLE "students" ADD CONSTRAINT "students_fk0" FOREIGN KEY ("class_id") REFERENCES "classes"("id");
-
 
 ALTER TABLE "answers" ADD CONSTRAINT "answers_fk0" FOREIGN KEY ("answered_by") REFERENCES "students"("id");
 
