@@ -1,9 +1,11 @@
 import { answerData, Question } from "../protocols/questions.interfaces";
+import dayjs from "dayjs";
 import * as questionsRepository from "../repositories/questions.repository";
 import * as studentsRepository from "../repositories/students.repository";
 import questionSchema from "../schemas/question.schema";
 import { BadRequest, NotFound } from "../utils/error";
 import { studentDB } from "../protocols/students.interface";
+import formatDate from "../utils/formatDate";
 
 const create = async (questionData: Question) => {
     const validation = questionSchema.validate(questionData);
@@ -49,4 +51,30 @@ const answer = async (answerData: answerData) => {
     return { id: answerRequest };
 };
 
-export { create, answer };
+const find = async (questionId: number) => {
+    let question = await questionsRepository.find(questionId);
+
+    if (!question) throw new NotFound("Question does not exist");
+
+    question = formatDate(question);
+
+    if (!question.answered) {
+        delete question.answeredAt;
+        delete question.answeredBy;
+        delete question.answer;
+    }
+
+    return question;
+};
+
+const findUnanswered = async () => {
+    let unansweredQuestionList = await questionsRepository.findAllUnanswered();
+
+    unansweredQuestionList = unansweredQuestionList.map((question) =>
+        formatDate(question)
+    );
+
+    return unansweredQuestionList;
+};
+
+export { create, answer, find, findUnanswered };

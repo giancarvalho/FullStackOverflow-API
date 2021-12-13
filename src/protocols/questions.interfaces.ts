@@ -5,6 +5,11 @@ interface Question {
     tags: string;
 }
 
+interface UnansweredQuestion extends Question {
+    id: number;
+    submitAt: Date;
+}
+
 interface QuestionDB {
     question: string;
     studendId: number;
@@ -13,9 +18,14 @@ interface QuestionDB {
 }
 
 interface RetrievedQuestion extends QuestionDB {
-    submittedAt: Date;
-    answerId: number;
+    submitAt: Date | string;
     answered: boolean;
+    student: string;
+    class: string;
+    tags: string;
+    answeredAt?: Date | string;
+    answeredBy?: string;
+    answer?: string;
 }
 
 interface answerData {
@@ -30,4 +40,11 @@ interface answerDataDB {
     questionId: number;
 }
 
-export { Question, QuestionDB, answerDataDB, answerData, RetrievedQuestion };
+export {
+    Question,
+    QuestionDB,
+    answerDataDB,
+    answerData,
+    RetrievedQuestion,
+    UnansweredQuestion,
+};
