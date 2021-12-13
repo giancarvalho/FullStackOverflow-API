@@ -45,4 +45,18 @@ const get = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-export { create, answer, get };
+const getUnanswered = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const getUnansweredRequest = await questionsService.findUnanswered();
+
+        res.send(getUnansweredRequest);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export { create, answer, get, getUnanswered };

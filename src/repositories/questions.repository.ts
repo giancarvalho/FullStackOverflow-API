@@ -3,6 +3,7 @@ import {
     answerDataDB,
     QuestionDB,
     RetrievedQuestion,
+    UnansweredQuestion,
 } from "../protocols/questions.interfaces";
 
 const create = async (questionData: QuestionDB): Promise<number> => {
@@ -46,4 +47,12 @@ const find = async (questionId: number): Promise<RetrievedQuestion> => {
     return result.rows[0];
 };
 
-export { create, answer, find };
+const findAllUnanswered = async (): Promise<UnansweredQuestion[]> => {
+    const result = await connection.query(
+        'SELECT questions.id, questions.question, students.name AS student, classes.name AS class, questions.submitted_at AS "submitAt" FROM questions JOIN students ON questions.student_id=students.id LEFT JOIN classes ON questions.class_id = classes.id WHERE questions.answered = false;'
+    );
+
+    return result.rows;
+};
+
+export { create, answer, find, findAllUnanswered };

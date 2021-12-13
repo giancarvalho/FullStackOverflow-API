@@ -5,6 +5,11 @@ interface Question {
     tags: string;
 }
 
+interface UnansweredQuestion extends Question {
+    id: number;
+    submitAt: Date;
+}
+
 interface QuestionDB {
     question: string;
     studendId: number;
@@ -35,4 +40,11 @@ interface answerDataDB {
     questionId: number;
 }
 
-export { Question, QuestionDB, answerDataDB, answerData, RetrievedQuestion };
+export {
+    Question,
+    QuestionDB,
+    answerDataDB,
+    answerData,
+    RetrievedQuestion,
+    UnansweredQuestion,
+};
