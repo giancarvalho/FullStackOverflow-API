@@ -4,9 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "build": "npx tsc --outDir dist",
-        "start": "ts-node src/server.ts",
-        "postinstall": "npm run build",
+        "start": "NODE_ENV=prod ts-node src/server.ts",
         "dev": "NODE_ENV=dev npx nodemon --watch \"src/**\" --ext \"ts,json\" --exec \"ts-node src/server.ts\""
     },
     "repository": {
