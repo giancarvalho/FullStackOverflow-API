@@ -13,9 +13,14 @@ interface QuestionDB {
 }
 
 interface RetrievedQuestion extends QuestionDB {
-    submittedAt: Date;
-    answerId: number;
+    submitAt: Date | string;
     answered: boolean;
+    student: string;
+    class: string;
+    tags: string;
+    answeredAt?: Date | string;
+    answeredBy?: string;
+    answer?: string;
 }
 
 interface answerData {

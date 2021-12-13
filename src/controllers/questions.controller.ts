@@ -34,4 +34,15 @@ const answer = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-export { create, answer };
+const get = async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    try {
+        const getQuestionRequest = await questionsService.find(Number(id));
+
+        res.send(getQuestionRequest);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export { create, answer, get };

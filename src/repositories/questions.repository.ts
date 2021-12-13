@@ -37,7 +37,7 @@ const answer = async (answerDataDB: answerDataDB) => {
 
 const find = async (questionId: number): Promise<RetrievedQuestion> => {
     const result = await connection.query(
-        "SELECT * FROM questions WHERE id = $1",
+        'SELECT questions.question, students.name AS student, classes.name AS class, questions.tags, questions.answered, questions.submitted_at AS "submitAt", answers.answer, users.name AS "answeredBy", answers.answered_at AS "answeredAt" FROM questions LEFT JOIN students ON questions.student_id=students.id LEFT JOIN classes ON questions.class_id = classes.id LEFT JOIN answers ON questions.answer_id = answers.id LEFT JOIN students AS users ON answers.answered_by=users.id  WHERE questions.id = $1;',
         [questionId]
     );
 

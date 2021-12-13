@@ -1,4 +1,5 @@
 import { answerData, Question } from "../protocols/questions.interfaces";
+import dayjs from "dayjs";
 import * as questionsRepository from "../repositories/questions.repository";
 import * as studentsRepository from "../repositories/students.repository";
 import questionSchema from "../schemas/question.schema";
@@ -49,4 +50,26 @@ const answer = async (answerData: answerData) => {
     return { id: answerRequest };
 };
 
-export { create, answer };
+const find = async (questionId: number) => {
+    const question = await questionsRepository.find(questionId);
+
+    if (!question) throw new NotFound("Question does not exist");
+
+    question.submitAt = dayjs(question.submitAt).format("YYYY-MM-DD HH:mm");
+
+    if (question.answered) {
+        question.answeredAt = dayjs(question.answeredAt).format(
+            "YYYY-MM-DD HH:mm"
+        );
+
+        return question;
+    }
+
+    delete question.answeredAt;
+    delete question.answeredBy;
+    delete question.answer;
+
+    return question;
+};
+
+export { create, answer, find };
