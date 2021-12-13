@@ -29,6 +29,10 @@ The API was made using NodeJs/Express.
 
 ## How to use
 
+The easiest way to use the API is to send request to the following URL: https://fullstackoverflow-api.herokuapp.com
+
+### Running locally
+
 1- Clone this repository using ```git clone https://github.com/giancarvalho/FullStackOverflow-API.git```
 
 2 - Run ```npm install``` 
@@ -95,7 +99,7 @@ POST /questions/:id - replace ":id" with the id number of the question you want 
 
 ```
 
-POST /users - lets you create user. You need to send an object with the following properties:
+POST /users - lets you create user. You need to send an object with the properties list below. If the class does not exist, it will be created in the same request.
 
 ```
 {
