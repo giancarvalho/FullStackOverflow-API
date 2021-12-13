@@ -18,6 +18,13 @@ const create = async (questionData: Question) => {
 
     if (!student) throw new BadRequest("Student not found");
 
+    if (
+        student.name !== questionData.student ||
+        student.className !== questionData.class
+    ) {
+        throw new BadRequest(`Student name or class does not match record`);
+    }
+
     const questionDataDB = {
         question: questionData.question,
         studendId: student.id,
